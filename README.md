@@ -3,7 +3,8 @@ Package that implements a ease way to lookup entity prefabs in a burst-compiled 
 
 # Example
 ```csharp
-/*code sample goes here*/
+var prefabs = SystemAPI.GetSingleton<PrefabSystem.Lookup>().Prefabs;
+Entity prefab = prefabs["an unique prefab id"];
 ```
 
 # Installation Unity 2022.2
