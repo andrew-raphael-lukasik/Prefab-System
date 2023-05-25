@@ -1,3 +1,9 @@
+
+
+IT IS NOT READY TO USE YET :D
+will fix it soon :I
+
+
 # ECS Prefab Lookup System
 Package that implements a ease way to lookup entity prefabs in a burst-compiled systems.
 
