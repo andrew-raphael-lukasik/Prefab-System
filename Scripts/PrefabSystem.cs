@@ -2,7 +2,7 @@ using Unity.Entities;
 using Unity.Collections;
 using Unity.Jobs;
 
-namespace ECSPrefabLookupSystem
+namespace ECSPrefabLookup
 {
 	#if ENABLE_NETWORK
 	[WorldSystemFilter( WorldSystemFilterFlags.ServerSimulation | WorldSystemFilterFlags.ClientSimulation )]
@@ -47,28 +47,6 @@ namespace ECSPrefabLookupSystem
 			}
 			int numAfter = prefabs.Count;
 			UnityEngine.Debug.Log($"<color=cyan>{state.World.Name} {GetType().Name}</color>: new prefab data consumed, {numAfter-numBefore} prefabs added");
-		}
-
-		public struct RequestPrefabPoolRegistration : IBufferElementData
-		{
-			public FixedString64Bytes ID;
-			public Entity Prefab;
-		}
-
-		public struct RequestPrefabRegistration : IComponentData
-		{
-			public FixedString64Bytes PrefabID;
-		}
-
-		public struct PrefabSystemID : ICleanupComponentData
-		{
-			public FixedString64Bytes Value;
-		}
-
-		public struct Lookup : IComponentData
-		{
-			public NativeHashMap<FixedString64Bytes,Entity> Prefabs;
-			public JobHandle Dependency;
 		}
 
 		[RequireMatchingQueriesForUpdate]

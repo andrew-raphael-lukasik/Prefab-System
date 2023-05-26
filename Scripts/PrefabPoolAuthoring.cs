@@ -2,10 +2,10 @@
 using UnityEngine;
 using Unity.Entities;
 
-namespace ECSPrefabLookupSystem
+namespace ECSPrefabLookup
 {
 	[DisallowMultipleComponent]
-	[AddComponentMenu( nameof(ECSPrefabLookupSystem)+"/Prefab Pool Authoring" )]
+	[AddComponentMenu( nameof(ECSPrefabLookup)+"/Prefab Pool Authoring" )]
 	public class PrefabPoolAuthoring : MonoBehaviour
 	{
 		[SerializeField] GameObject[] _prefabs = new GameObject[0];
@@ -15,9 +15,9 @@ namespace ECSPrefabLookupSystem
 			{
 				Entity entity = this.GetEntity( authoring , TransformUsageFlags.None );
 
-				var pool = AddBuffer<PrefabSystem.RequestPrefabPoolRegistration>( entity );
+				var pool = AddBuffer<RequestPrefabPoolRegistration>( entity );
 				foreach( var go in authoring._prefabs )
-					pool.Add( new PrefabSystem.RequestPrefabPoolRegistration{ ID=go.name , Prefab=GetEntity(go,TransformUsageFlags.None) } );
+					pool.Add( new RequestPrefabPoolRegistration{ ID=go.name , Prefab=GetEntity(go,TransformUsageFlags.None) } );
 			}
 		}
 	}

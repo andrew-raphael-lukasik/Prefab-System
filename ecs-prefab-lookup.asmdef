@@ -1,6 +1,6 @@
 {
-    "name": "ECS Prefab Lookup System",
-    "rootNamespace": "ECSPrefabLookupSystem",
+    "name": "ECS Prefab Lookup",
+    "rootNamespace": "ECSPrefabLookup",
     "references": [
         "Unity.Burst",
         "Unity.Collections",
@@ -10,7 +10,6 @@
         "Unity.Mathematics",
         "Unity.Mathematics.Extensions",
         "Unity.Mathematics.Extensions.Hybrid",
-        "Unity.Rendering.Hybrid",
         "Unity.Transforms",
         "Unity.Transforms.Hybrid"
     ],
