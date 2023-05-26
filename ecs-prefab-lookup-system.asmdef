@@ -1,6 +1,6 @@
 {
     "name": "ECS Prefab Lookup System",
-    "rootNamespace": "",
+    "rootNamespace": "ECSPrefabLookupSystem",
     "references": [
         "Unity.Burst",
         "Unity.Collections",

@@ -2,19 +2,22 @@
 using UnityEngine;
 using Unity.Entities;
 
-[DisallowMultipleComponent]
-public class PrefabAuthoring : MonoBehaviour
+namespace ECSPrefabLookupSystem
 {
-	public class Baker : Baker<PrefabAuthoring>
+	[DisallowMultipleComponent]
+	[AddComponentMenu( nameof(ECSPrefabLookupSystem)+"/Prefab Authoring" )]
+	public class PrefabAuthoring : MonoBehaviour
 	{
-		public override void Bake ( PrefabAuthoring authoring )
+		public class Baker : Baker<PrefabAuthoring>
 		{
-			Entity entity = this.GetEntity( authoring , TransformUsageFlags.None );
+			public override void Bake ( PrefabAuthoring authoring )
+			{
+				Entity entity = this.GetEntity( authoring , TransformUsageFlags.None );
 
-			AddComponent<PrefabSystem.RequestPrefabRegistration>( entity );
-			AddComponent<Prefab>( entity );
+				AddComponent<PrefabSystem.RequestPrefabRegistration>( entity );
+				AddComponent<Prefab>( entity );
+			}
 		}
 	}
-
 }
 #endif
