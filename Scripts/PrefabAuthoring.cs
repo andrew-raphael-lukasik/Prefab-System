@@ -2,10 +2,10 @@
 using UnityEngine;
 using Unity.Entities;
 
-namespace ECSPrefabLookupSystem
+namespace ECSPrefabLookup
 {
 	[DisallowMultipleComponent]
-	[AddComponentMenu( nameof(ECSPrefabLookupSystem)+"/Prefab Authoring" )]
+	[AddComponentMenu( nameof(ECSPrefabLookup)+"/Prefab Authoring" )]
 	public class PrefabAuthoring : MonoBehaviour
 	{
 		public class Baker : Baker<PrefabAuthoring>
@@ -14,7 +14,7 @@ namespace ECSPrefabLookupSystem
 			{
 				Entity entity = this.GetEntity( authoring , TransformUsageFlags.None );
 
-				AddComponent<PrefabSystem.RequestPrefabRegistration>( entity );
+				AddComponent<RequestPrefabRegistration>( entity );
 				AddComponent<Prefab>( entity );
 			}
 		}
