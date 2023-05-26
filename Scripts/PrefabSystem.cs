@@ -53,7 +53,10 @@ namespace ECSPrefabLookup
 		public partial struct PrefabDeregistrationSystem : ISystem
 		{
 			[Unity.Burst.BurstCompile]
-			public void OnCreate ( ref SystemState state ) {}
+			public void OnCreate ( ref SystemState state )
+			{
+				state.RequireForUpdate<Lookup>();
+			}
 
 			[Unity.Burst.BurstCompile]
 			public void OnDestroy ( ref SystemState state ) {}
