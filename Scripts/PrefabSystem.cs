@@ -4,6 +4,9 @@ using Unity.Jobs;
 
 namespace ECSPrefabLookup
 {
+	/// <summary>
+	/// System that maintains <seealso cref="Lookup"/> singleton.
+	/// </summary>
 	#if ENABLE_NETWORK
 	[WorldSystemFilter( WorldSystemFilterFlags.ServerSimulation | WorldSystemFilterFlags.ClientSimulation )]
 	#endif
