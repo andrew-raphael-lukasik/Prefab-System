@@ -5,7 +5,7 @@ using Unity.Jobs;
 namespace ECSPrefabLookup
 {
 	/// <summary>
-	/// System that maintains <seealso cref="Lookup"/> singleton.
+	/// System that maintains <seealso cref="Prefabs"/> singleton.
 	/// </summary>
 	#if ENABLE_NETWORK
 	[WorldSystemFilter( WorldSystemFilterFlags.ServerSimulation | WorldSystemFilterFlags.ClientSimulation )]
@@ -20,23 +20,23 @@ namespace ECSPrefabLookup
 		{
 			state.RequireForUpdate<RequestPrefabPoolRegistration>();
 			
-			Entity singleton = state.EntityManager.CreateEntity( typeof(Lookup) );
-			SystemAPI.SetSingleton( new Lookup{
-				Prefabs = new NativeHashMap<FixedString64Bytes,Entity>( 128 , Allocator.Persistent )
+			Entity singleton = state.EntityManager.CreateEntity( typeof(Prefabs) );
+			SystemAPI.SetSingleton( new Prefabs{
+				Lookup = new NativeHashMap<FixedString64Bytes,Entity>( 128 , Allocator.Persistent )
 			} );
 		}
 
 		[Unity.Burst.BurstCompile]
 		public void OnDestroy ( ref SystemState state )
 		{
-			if( SystemAPI.TryGetSingletonEntity<Lookup>(out Entity singleton) )
+			if( SystemAPI.TryGetSingletonEntity<Prefabs>(out Entity singleton) )
 				state.EntityManager.DestroyEntity( singleton );
 		}
 
 		//[Unity.Burst.BurstCompile]
 		public void OnUpdate ( ref SystemState state )
 		{
-			var prefabs = SystemAPI.GetSingleton<Lookup>().Prefabs;
+			var prefabs = SystemAPI.GetSingleton<Prefabs>().Lookup;
 			int numBefore = prefabs.Count;
 			{
 				var list = new NativeList<Entity>( 1 , Allocator.Temp );
@@ -58,7 +58,7 @@ namespace ECSPrefabLookup
 			[Unity.Burst.BurstCompile]
 			public void OnCreate ( ref SystemState state )
 			{
-				state.RequireForUpdate<Lookup>();
+				state.RequireForUpdate<Prefabs>();
 			}
 
 			[Unity.Burst.BurstCompile]
@@ -68,12 +68,12 @@ namespace ECSPrefabLookup
 			public void OnUpdate ( ref SystemState state )
 			{
 				var ecb = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer( state.WorldUnmanaged );
-				var lookup = SystemAPI.GetSingleton<Lookup>();
+				var lookup = SystemAPI.GetSingleton<Prefabs>();
 			
 				state.Dependency = new UnregisterPrefabJob
 				{
 					ECB = ecb ,
-					Prefabs = lookup.Prefabs ,
+					Prefabs = lookup.Lookup ,
 				}.Schedule( JobHandle.CombineDependencies(state.Dependency,lookup.Dependency) );
 				lookup.Dependency = state.Dependency;
 			}
