@@ -8,9 +8,9 @@ namespace ECSPrefabLookup
 	/// Singleton that holds prefab lookup data.
 	/// Maintained by <seealso cref="PrefabSystem"/>.
 	/// </summary>
-	public struct Lookup : IComponentData
+	public struct Prefabs : IComponentData
 	{
-		public NativeHashMap<FixedString64Bytes,Entity> Prefabs;
+		public NativeHashMap<FixedString64Bytes,Entity> Lookup;
 		public JobHandle Dependency;
 	}
 }
