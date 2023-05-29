@@ -1,15 +1,15 @@
 {
-  "name": "com.andrewraphaellukasik.ecs-prefab-lookup",
+  "name": "com.andrewraphaellukasik.prefab-system",
   "author": {
     "name": "Andrzej Rafa\u0142 \u0141ukasik",
     "email": "andrew.r.lukasik@gmail.com",
     "url": "https://github.com/andrew-raphael-lukasik"
   },
-  "displayName": "ECS Prefab Lookup",
+  "displayName": "Prefab System",
   "version": "2022.2.2",
   "unity": "2022.2",
   "description": "ECS prefab lookup system",
-  "documentationUrl": "https://github.com/andrew-raphael-lukasik/ecs-prefab-lookup",
+  "documentationUrl": "https://github.com/andrew-raphael-lukasik/prefab-system",
   "dependencies": {
     "com.unity.entities": "1.0.8"
   },

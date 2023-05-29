@@ -1,10 +1,10 @@
 using Unity.Entities;
 using Unity.Collections;
 
-namespace ECSPrefabLookup
+public partial struct PrefabSystem
 {
 	/// <summary>
-	/// Inner prefab ID data for <seealso cref="PrefabSystem"/>
+	/// Inner prefab ID data for <seealso cref="RegistrationSystem"/> and <seealso cref="DeregistrationSystem"/> systems.
 	/// </summary>
 	public struct PrefabSystemID : ICleanupComponentData
 	{

@@ -1,11 +1,11 @@
 using Unity.Entities;
 using Unity.Collections;
 
-namespace ECSPrefabLookup
+public partial struct PrefabSystem
 {
 	/// <summary>
 	/// Request to register a prefab.
-	/// Consumed by <seealso cref="PrefabSystem"/>.
+	/// Consumed by <seealso cref="RegistrationSystem"/>.
 	/// </summary>
 	public struct RequestPrefabRegistration : IComponentData
 	{
