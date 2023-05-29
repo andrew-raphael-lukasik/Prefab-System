@@ -2,15 +2,15 @@ using Unity.Entities;
 using Unity.Collections;
 using Unity.Jobs;
 
-namespace ECSPrefabLookup
+public partial struct PrefabSystem
 {
 	/// <summary>
 	/// Singleton that holds prefab lookup data.
-	/// Maintained by <seealso cref="PrefabSystem"/>.
+	/// Created by <seealso cref="SingletonCreationSystem"/>.
 	/// </summary>
 	public struct Prefabs : IComponentData
 	{
-		public NativeHashMap<FixedString64Bytes,Entity> Lookup;
+		public NativeHashMap<FixedString64Bytes,Entity> Registry;
 		public JobHandle Dependency;
 	}
 }
