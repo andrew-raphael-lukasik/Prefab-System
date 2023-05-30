@@ -9,6 +9,9 @@
 Package that implements a simple way to lookup entity prefabs. Lookup is burst-compiled.
 
 # Example
+- Create in your sub-scene a `GameObject` with `Prefab System/Prefab Pool Authoring` component and fill it's `Prefabs` field with prefabs you want to register.
+- Alternatively use `Prefab System/Prefab Authoring` component to bake and turn any `GameObject` in your sub-scene into a registered prefab.
+- Write your game code and refer to these prefabs like this:
 ```csharp
 var singleton = SystemAPI.GetSingleton<Prefabs>();
 var prefabs = singleton.Registry;
@@ -16,6 +19,7 @@ Entity prefab = prefabs["an unique prefab id"];
 
 // singleton.Dependency contains JobHandle to queue read/write access to singleton.Registry
 ```
+> NOTE: GameObject prefab name will become it's unique prefab id
 
 # Installation Unity 2022.2
 Add this line in `manifest.json` under `dependencies`:
