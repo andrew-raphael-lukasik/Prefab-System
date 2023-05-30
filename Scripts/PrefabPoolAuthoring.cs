@@ -11,6 +11,9 @@ public class PrefabPoolAuthoring : MonoBehaviour
 	{
 		public override void Bake ( PrefabPoolAuthoring authoring )
 		{
+			if( authoring._prefabs==null || authoring._prefabs.Length==0 )
+				return;
+
 			Entity entity = this.GetEntity( authoring , TransformUsageFlags.None );
 
 			var pool = AddBuffer<PrefabSystem.RequestPrefabPoolRegistration>( entity );
