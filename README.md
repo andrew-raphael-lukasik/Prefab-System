@@ -13,7 +13,7 @@ Package that implements a simple way to lookup entity prefabs. Lookup is burst-c
 - Alternatively use `Prefab System/Prefab Authoring` component to bake and turn any `GameObject` in your sub-scene into a registered prefab.
 - Write your game code and refer to these prefabs like this:
 ```csharp
-var singleton = SystemAPI.GetSingleton<Prefabs>();
+var singleton = SystemAPI.GetSingleton<PrefabSystem.Prefabs>();
 var prefabs = singleton.Registry;
 Entity prefab = prefabs["an unique prefab id"];
 
