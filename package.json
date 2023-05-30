@@ -6,7 +6,7 @@
     "url": "https://github.com/andrew-raphael-lukasik"
   },
   "displayName": "Prefab System",
-  "version": "2022.2.2",
+  "version": "2022.2.21",
   "unity": "2022.2",
   "description": "ECS prefab lookup system",
   "documentationUrl": "https://github.com/andrew-raphael-lukasik/prefab-system",
