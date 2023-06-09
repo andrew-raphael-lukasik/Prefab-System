@@ -15,7 +15,7 @@ Package that implements a simple way to lookup entity prefabs. Lookup is burst-c
 ```csharp
 var singleton = SystemAPI.GetSingleton<PrefabSystem.Prefabs>();
 var prefabs = singleton.Registry;
-Entity prefab = prefabs["an unique prefab id"];
+Entity prefab = prefabs["prefab name"];
 
 // singleton.Dependency contains JobHandle to queue read/write access to singleton.Registry
 ```
