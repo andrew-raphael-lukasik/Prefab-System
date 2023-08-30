@@ -4,7 +4,7 @@
 
 `com.unity.entities 1.0` introduced a baking workflow. This created a need for a new way to identify baked entity prefabs without costly search schemes and dozens of one-off tags.
 
-I expect this repo to become obsolete in few months once `com.unity.entities` introduces more refined and tested workflow + API to do this.
+I expect this repo to become obsolete in 3-18 months once `com.unity.entities` introduces more refined and tested workflow + API to do this.
 
 ### What:
 
