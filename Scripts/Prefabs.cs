@@ -6,7 +6,7 @@ public partial struct PrefabSystem
 {
 	/// <summary>
 	/// Singleton that holds prefab lookup data.
-	/// Created by <seealso cref="SingletonCreationSystem"/>.
+	/// Created by <seealso cref="SingletonLifetimeSystem"/>.
 	/// </summary>
 	public struct Prefabs : IComponentData
 	{

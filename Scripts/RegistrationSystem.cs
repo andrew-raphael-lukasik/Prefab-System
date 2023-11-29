@@ -11,7 +11,7 @@ public partial struct PrefabSystem
 	/// </summary>
 	[WorldSystemFilter( WorldSystemFilterFlags.LocalSimulation | WorldSystemFilterFlags.ServerSimulation | WorldSystemFilterFlags.ClientSimulation )]
 	[UpdateInGroup( typeof(InitializationSystemGroup) , OrderFirst=true )]
-	[UpdateAfter( typeof(SingletonCreationSystem) )]
+	[UpdateAfter( typeof(SingletonLifetimeSystem) )]
 	[RequireMatchingQueriesForUpdate]
 	public partial struct RegistrationSystem : ISystem
 	{

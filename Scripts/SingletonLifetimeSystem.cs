@@ -8,7 +8,7 @@ public partial struct PrefabSystem
 	/// </summary>
 	[WorldSystemFilter( WorldSystemFilterFlags.LocalSimulation | WorldSystemFilterFlags.ServerSimulation | WorldSystemFilterFlags.ClientSimulation )]
 	[UpdateInGroup( typeof(InitializationSystemGroup) , OrderFirst=true )]
-	public partial struct SingletonCreationSystem : ISystem
+	public partial struct SingletonLifetimeSystem : ISystem
 	{
 
 		[Unity.Burst.BurstCompile]
@@ -23,7 +23,16 @@ public partial struct PrefabSystem
 		}
 
 		[Unity.Burst.BurstCompile]
-		public void OnDestroy ( ref SystemState state ) {}
+		public void OnDestroy ( ref SystemState state )
+		{
+			if( SystemAPI.TryGetSingletonEntity<Prefabs>(out Entity singleton) )
+			{
+				var prefabs = SystemAPI.GetSingleton<Prefabs>();
+				prefabs.Dependency.Complete();
+				prefabs.Registry.Dispose();
+				state.EntityManager.DestroyEntity( singleton );
+			}
+		}
 
 		[Unity.Burst.BurstCompile]
 		public void OnUpdate ( ref SystemState state ) {}
