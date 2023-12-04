@@ -4,6 +4,8 @@
 
 `com.unity.entities 1.0` introduced a baking workflow. This created a need for a new way to identify baked entity prefabs without costly search schemes and dozens of one-off tags.
 
+I expect this repo to become obsolete in 3-18 months once `com.unity.entities` introduces more refined and tested workflow + API to do this.
+
 ### What:
 
 Package that implements a simple way to lookup entity prefabs. Lookup is burst-compiled.
@@ -16,8 +18,8 @@ Package that implements a simple way to lookup entity prefabs. Lookup is burst-c
 var singleton = SystemAPI.GetSingleton<PrefabSystem.Prefabs>();
 var prefabs = singleton.Registry;
 
-prefabsDependency.Complete();// call before accessing prefabs or set as dependency
-Entity prefab = prefabs["an unique prefab id"];
+prefabs.Dependency.Complete();// call before accessing prefabs or set as dependency
+Entity prefab = prefabs["prefab name"];
 
 // singleton.Dependency contains JobHandle to queue read/write access to singleton.Registry
 ```
