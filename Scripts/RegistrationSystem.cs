@@ -13,14 +13,18 @@ public partial struct PrefabSystem
 	[UpdateInGroup( typeof(InitializationSystemGroup) , OrderFirst=true )]
 	[UpdateAfter( typeof(SingletonLifetimeSystem) )]
 	[RequireMatchingQueriesForUpdate]
+	[Unity.Burst.BurstCompile]
 	public partial struct RegistrationSystem : ISystem
 	{
 
 		[Unity.Burst.BurstCompile]
-		public void OnCreate ( ref SystemState state ) {}
-
-		[Unity.Burst.BurstCompile]
-		public void OnDestroy ( ref SystemState state ) {}
+		public void OnCreate ( ref SystemState state )
+		{
+			state.RequireForUpdate<Prefabs>();
+			state.RequireForUpdate( new EntityQueryBuilder(Allocator.Temp)
+				.WithAny<RequestPrefabRegistration, RequestPrefabPoolRegistration>()
+			.Build(ref state) );
+		}
 
 		[Unity.Burst.BurstCompile]
 		public void OnUpdate ( ref SystemState state )
@@ -29,8 +33,7 @@ public partial struct PrefabSystem
 			var singleton = SystemAPI.GetSingleton<Prefabs>();
 			var prefabs = singleton.Registry;
 
-			state.Dependency = new RegisterPrefabPoolJob
-			{
+			state.Dependency = new RegisterPrefabPoolJob{
 				ECB = ecb ,
 				Prefabs = prefabs ,
 				WorldName = state.WorldUnmanaged.Name ,

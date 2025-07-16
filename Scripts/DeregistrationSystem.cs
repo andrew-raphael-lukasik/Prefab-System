@@ -11,18 +11,14 @@ public partial struct PrefabSystem
 	[UpdateInGroup( typeof(InitializationSystemGroup) , OrderFirst=true )]
 	[UpdateAfter( typeof(SingletonLifetimeSystem) )]
 	[RequireMatchingQueriesForUpdate]
+	[Unity.Burst.BurstCompile]
 	public partial struct DeregistrationSystem : ISystem
 	{
 		[Unity.Burst.BurstCompile]
 		public void OnCreate ( ref SystemState state )
 		{
 			state.RequireForUpdate<Prefabs>();
-		}
-
-		[Unity.Burst.BurstCompile]
-		public void OnDestroy ( ref SystemState state )
-		{
-			
+			state.RequireForUpdate<PrefabSystemID>();
 		}
 
 		[Unity.Burst.BurstCompile]
@@ -31,9 +27,8 @@ public partial struct PrefabSystem
 			var ecb = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer( state.WorldUnmanaged );
 			var singleton = SystemAPI.GetSingleton<Prefabs>();
 			var prefabs = singleton.Registry;
-			
-			state.Dependency = new DeregisterPrefabJob
-			{
+
+			state.Dependency = new DeregisterPrefabJob{
 				ECB = ecb ,
 				Prefabs = prefabs ,
 			}.Schedule( JobHandle.CombineDependencies(state.Dependency,singleton.Dependency) );
