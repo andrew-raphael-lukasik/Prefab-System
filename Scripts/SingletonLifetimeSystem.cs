@@ -6,7 +6,7 @@ public partial struct PrefabSystem
 	/// <summary>
 	/// System that creates <seealso cref="Prefabs"/> singleton.
 	/// </summary>
-	[WorldSystemFilter( WorldSystemFilterFlags.LocalSimulation | WorldSystemFilterFlags.ServerSimulation | WorldSystemFilterFlags.ClientSimulation )]
+	[WorldSystemFilter(WorldSystemFilterFlags.LocalSimulation | WorldSystemFilterFlags.ServerSimulation | WorldSystemFilterFlags.ClientSimulation | WorldSystemFilterFlags.Editor)]
 	[UpdateInGroup( typeof(InitializationSystemGroup) , OrderFirst=true )]
 	[Unity.Burst.BurstCompile]
 	public partial struct SingletonLifetimeSystem : ISystem
