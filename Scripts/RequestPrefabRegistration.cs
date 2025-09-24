@@ -5,7 +5,7 @@ public partial struct PrefabSystem
 {
 	/// <summary>
 	/// Request to register a prefab.
-	/// Consumed by <seealso cref="RegistrationSystem"/>.
+	/// Consumed by <seealso cref="PrefabRegistrationSystem"/>.
 	/// </summary>
 	public struct RequestPrefabRegistration : IComponentData
 	{

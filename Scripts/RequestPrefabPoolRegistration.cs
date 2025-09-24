@@ -5,7 +5,7 @@ public partial struct PrefabSystem
 {
 	/// <summary>
 	/// Request to register multiple prefabs.
-	/// Consumed by <seealso cref="RegistrationSystem"/>.
+	/// Consumed by <seealso cref="PrefabRegistrationSystem"/>.
 	/// </summary>
 	public struct RequestPrefabPoolRegistration : IBufferElementData
 	{
