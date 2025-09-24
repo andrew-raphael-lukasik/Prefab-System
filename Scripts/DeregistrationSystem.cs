@@ -7,7 +7,7 @@ public partial struct PrefabSystem
 	/// <summary>
 	/// System that removes entries from <seealso cref="Prefabs"/> singleton.
 	/// </summary>
-	[WorldSystemFilter( WorldSystemFilterFlags.LocalSimulation | WorldSystemFilterFlags.ServerSimulation | WorldSystemFilterFlags.ClientSimulation )]
+	[WorldSystemFilter(WorldSystemFilterFlags.LocalSimulation | WorldSystemFilterFlags.ServerSimulation | WorldSystemFilterFlags.ClientSimulation | WorldSystemFilterFlags.Editor)]
 	[UpdateInGroup( typeof(InitializationSystemGroup) , OrderFirst=true )]
 	[UpdateAfter( typeof(SingletonLifetimeSystem) )]
 	[RequireMatchingQueriesForUpdate]
