@@ -51,12 +51,14 @@ namespace PrefabSystem.Systems
                     if (prefab==entity)
                     {
                         Prefabs.Remove(prefabID.Key);
+                        
+                        #if DEBUG && !PREFAB_SYSTEM_DISABLE_LOG_MESSAGES
                         Debug.Log($"{DebugName}: prefab with '{prefabID.Key}' ID detected as destroyed, unregistering.");
+                        #endif
                     }
-                    else
-                    {
-                        Debug.Log($"{DebugName}: prefab with '{prefabID.Key}' ID detected as destroyed, but registered & destroyed entities do not match - ignoring.");
-                    }
+                    #if DEBUG && !PREFAB_SYSTEM_DISABLE_LOG_MESSAGES
+                    else Debug.Log($"{DebugName}: prefab with '{prefabID.Key}' ID detected as destroyed, but registered & destroyed entities do not match - ignoring.");
+                    #endif
 
                     ECB.RemoveComponent<PrefabID>(entity);
                 }

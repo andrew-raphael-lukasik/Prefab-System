@@ -22,6 +22,7 @@ namespace PrefabSystem.Authoring
 
                 var pool = AddBuffer<PrefabPoolBakingData>(entity);
                 foreach(var prefab in authoring._prefabs)
+                if (prefab!=null)
                 {
                     pool.Add(new PrefabPoolBakingData{
                         Key     = prefab.name,
