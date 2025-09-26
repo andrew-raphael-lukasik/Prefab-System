@@ -77,11 +77,17 @@ namespace PrefabSystem.Systems
             public void Execute(in Entity entity, in RegisterPrefab request)
             {
                 if( Prefabs.TryAdd(request.Key,entity) )
+                {
+                    #if DEBUG && !PREFAB_SYSTEM_DISABLE_LOG_MESSAGES
                     Debug.Log($"{WorldName} {DebugName}: '{request.Key}' prefab registered successfully.");
+                    #endif
+                }
+                #if DEBUG && !PREFAB_SYSTEM_DISABLE_LOG_MESSAGES
                 else if (Prefabs.ContainsKey(request.Key))
                     Debug.LogWarning($"{WorldName} {DebugName}: prefab under '{request.Key}' ID was registrated already");
                 else
                     Debug.LogWarning($"{WorldName} {DebugName}: '{request.Key}' prefab registration failed");
+                #endif
 
                 ECB.AddComponent(entity, new PrefabID{
                     Key = request.Key
