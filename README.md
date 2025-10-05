@@ -17,12 +17,14 @@ UPDATE: 2 years later; 😂
 - Alternatively use `Prefab System/Prefab Authoring` component to bake and turn any `GameObject` in your sub-scene into a registered prefab.
 - Write your game code and refer to these prefabs like this:
 ```csharp
-var prefabs = SystemAPI.GetSingleton<PrefabSystem.Prefabs>();
+var prefabsRef = SystemAPI.GetSingletonRW<PrefabSystem.Prefabs>();
 
-// prefabs.Dependency contains JobHandle to queue read/write access to prefabs.Lookup
-prefabs.Dependency.Complete();// call before accessing prefabs or set as dependency
+// `Dependency` is a read/write access handle for `Lookup`
+prefabsRef.ValueRW.Dependency.Complete();// call before accessing prefabs or add to a job dependencies (when instantiating in a job)
 
-Entity prefab = prefabs.Lookup["prefab name"];
+var prefabsRO = prefabsRef.ValueRO.Lookup;
+Entity prefab = prefabsRO["prefab_name"];
+Entity instance = entityManager.Instantiate(prefab);
 ```
 > NOTE: GameObject prefab name will become it's unique prefab id
 
