@@ -26,16 +26,14 @@ namespace PrefabSystem.Systems
         public void OnUpdate(ref SystemState state)
         {
             var ecb = SystemAPI.GetSingleton<EndInitializationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
-            var prefabs = SystemAPI.GetSingleton<Prefabs>();
-            var lookup = prefabs.Lookup;
-            
-            state.Dependency = JobHandle.CombineDependencies(state.Dependency, prefabs.Dependency);
+            var singletonRef = SystemAPI.GetSingletonRW<Prefabs>();
+
+            state.Dependency = JobHandle.CombineDependencies(state.Dependency, singletonRef.ValueRW.Dependency);
             state.Dependency = new UnregisterPrefabJob{
                 ECB     = ecb,
-                Prefabs = lookup,
+                Prefabs = singletonRef.ValueRW.Lookup,
             }.Schedule(state.Dependency);
-
-            SystemAPI.SetSingleton(prefabs);// updates singleton.Dependency
+            singletonRef.ValueRW.Dependency = state.Dependency;
         }
 
         [Unity.Burst.BurstCompile]
