@@ -33,10 +33,10 @@ namespace PrefabSystem.Systems
         [Unity.Burst.BurstCompile]
         void ISystem.OnDestroy(ref SystemState state)
         {
-            if (SystemAPI.TryGetSingleton<Prefabs>(out var prefabs))
+            if (SystemAPI.TryGetSingletonRW<Prefabs>(out var prefabsRef))
             {
-                prefabs.Dependency.Complete();
-                prefabs.Lookup.Dispose();
+                prefabsRef.ValueRW.Dependency.Complete();
+                if (prefabsRef.ValueRW.Lookup.IsCreated) prefabsRef.ValueRW.Lookup.Dispose();
             }
         }
 
@@ -53,14 +53,15 @@ namespace PrefabSystem.Systems
             }
 
             var ecb = new EntityCommandBuffer(Allocator.TempJob);
-            var prefabs = SystemAPI.GetSingleton<Prefabs>();
+            var singletonRef = SystemAPI.GetSingletonRW<Prefabs>();
 
-            state.Dependency = JobHandle.CombineDependencies(state.Dependency, prefabs.Dependency);
+            state.Dependency = JobHandle.CombineDependencies(state.Dependency, singletonRef.ValueRW.Dependency);
             state.Dependency = new RegisterPrefabJob{
                 ECB             = ecb,
-                Prefabs         = prefabs.Lookup,
+                Prefabs         = singletonRef.ValueRW.Lookup,
                 WorldName       = state.WorldUnmanaged.Name,
             }.Schedule(state.Dependency);
+            singletonRef.ValueRW.Dependency = state.Dependency;
 
             state.Dependency.Complete();
             if (ecb.ShouldPlayback) ecb.Playback(state.EntityManager);
